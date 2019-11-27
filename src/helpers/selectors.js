@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const getAppointmentsForDay= function(state, day) {
     let result = [];
     let compare = []
@@ -17,6 +18,32 @@ const getAppointmentsForDay= function(state, day) {
     })
       return result;
    }
+   const getInterviewerForDay = function(state, day) {
+    let result = [];
+    let compare = []
+    const filteredDays = state.days.filter(item => item.name === day);
+    if (filteredDays.length > 0) {
+      compare = filteredDays[0].interviewers
+    }
+    compare.forEach(item => {
+      
+     if (item === state.interviewers[item].id) {
+       
+       result.push(state.interviewers[item])
+     } 
+    })
+    console.log(result)
+      return result;
+   }
+  //   compare.forEach(item => {
+      
+  //    if (item === state.interviewers[item].id) {
+       
+  //      result.push(state.interviewers[item])
+  //    } 
+  //   })
+  //     return result;
+  //  }
 
  const getInterview = function(state, interview) {
   
@@ -31,12 +58,12 @@ const getAppointmentsForDay= function(state, day) {
       // console.log(student)
       obj["interviewer"] = state.interviewers[key]
       obj["student"] = student
-      console.log(obj)
+      // console.log(obj)
       return obj
     } 
     // state.interviewers.key = student
   } return null
    
-  }
+}
 
-export { getInterview, getAppointmentsForDay }
+export { getInterview, getAppointmentsForDay, getInterviewerForDay }
