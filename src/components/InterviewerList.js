@@ -7,11 +7,7 @@ import InterviewerListItem from "components/InterviewerListItem"
 
 
 export default function InterviewList(props) { 
-  const setInterviewer = function(i) {
-    if (props.interviewer === i ) {
-      return i
-    }
-  }
+  
   
 
   const RenderInterviewList  = props.interviewers.map((person) => {

@@ -170,7 +170,7 @@ storiesOf("Button", module)
         ))
         .add("Edit", () => (
           <Form 
-          name = ""
+          name = {"name"}
           interviewers = {interviewers}
           interviewer = {2}
           onSave = {action("onSave")}

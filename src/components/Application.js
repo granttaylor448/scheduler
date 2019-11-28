@@ -5,27 +5,57 @@ import "components/Application.scss";
 import Appointment from "components/Appointment";
 import DayList from "./DayList"
 import {getAppointmentsForDay, getInterview, getInterviewerForDay } from "../helpers/selectors";
+import useApplicationData from "hooks/useApplicationData"
 
 
 
 export default function Application(props) {
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviews: {},
-  });
+
+  // const [state, setState] = useState({
+  //   day: "Monday",
+  //   days: [],
+  //   appointments: {},
+  //   interviews: {}
+  // });
+  // console.log(state)
+
+  function bookInterview(id, interview) {
+    
+    console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+      console.log(appointments)
+    return axios.put(`/api/appointments/${id}`, {interview}).then(res => setState(state => ({...state, appointments})))
+    
+  }
+
+  function deleteInterview(id, interview) {
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    
+    return axios.delete(`/api/appointments/${id}`).then(res => setState(state => ({...state, appointments})))
+  }
+  
   // const [days, setDays] = useState([])
   // const [day, setDay] = useState("Monday")
-  const setDay = day => setState({ ...state, day });
+  // const setDay = day => setState({ ...state, day });
   // const setDays = days => setState(prev => ({ ...prev, days }));
 
     useEffect (() => {
-      // axios.get('/api/days').then ((res) => { res.data })
-        // console.log(res.data) 
-        // setDays(res.data)
       
-
+     
       Promise.all([
         Promise.resolve(axios.get('/api/days').then ((res) =>  res.data )),
         Promise.resolve(axios.get('/api/appointments').then ((res) =>  res.data )),
@@ -35,10 +65,6 @@ export default function Application(props) {
         console.log(all[0]); // first
         console.log(all[1]); // second
         console.log(all[2]); // third
-      
-        // const [first, second, third] = all;
-      
-        // console.log(first, second, third);
       });
     }, [])
 
@@ -55,6 +81,8 @@ export default function Application(props) {
           time={appointment.time}
           interview={interview}
           interviewers={interviewers}
+          bookInterview={bookInterview}
+          deleteInterview = {deleteInterview}
         />
         
       );

@@ -16,6 +16,13 @@ export default function Form(props) {
     reset();
     props.onCancel();
   }
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+  }
+
 
   
 
