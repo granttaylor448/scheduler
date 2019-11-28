@@ -1,21 +1,20 @@
 import React from "react";
 
 import "components/DayListItem.scss";
-// import { tsPropertySignature } from "@babel/types";
 var classNames = require('classnames');
 
 
 export default function DayListItem(props) {
-  const formatSpots = () => {
-    if (props.spots === 1){
-      return <p>{props.spots} spot remaining</p>
+  const formatSpots = (spots) => {
+    if (spots === 1){
+      return <p>{spots} spot remaining</p>
     }
 
-    if (props.spots > 1){
-      return <p>{props.spots} spots remaining</p>
+    if (spots > 1){
+      return <p>{spots} spots remaining</p>
     }
 
-    if (props.spots < 1){
+    if (spots < 1){
       return <p>no spots remaining</p>
     }
   }
@@ -27,7 +26,7 @@ export default function DayListItem(props) {
   });
   
   return (
-    <li onClick= {() => props.setDay(props.name)} className={dayClass}>
+    <li onClick= {props.setDay} className={dayClass}>
       <h2>{props.name}</h2>
       <h3> {formatSpots(props.spots)}</h3>   
       
