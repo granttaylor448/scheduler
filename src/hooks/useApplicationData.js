@@ -12,6 +12,7 @@ export default function useApplicationData () {
   //   appointments: {},
   //   interviews: {}
   // });
+  
 
   const SET_DAY = "SET_DAY";
   const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
@@ -27,17 +28,18 @@ function reducer(state , action) {
          days : action.days,
          appointments: action.appointments,
          interviewers: action.interviewers,
-         spots: state.spots - 1
          
-       }
-    case SET_INTERVIEW: {
-      return {...state,
-        appointments: action.appointments
+         
+     }
+     case SET_INTERVIEW: { 
+       return {...state,
+         appointments: action.appointments,
+         spots: 100
       }
     }
     case SET_SPOTSREMAINING: {
       return {...state,
-        spots: state.spots - action.spots
+        days: action.stateDays
       }
     }
     default:
@@ -57,11 +59,53 @@ function reducer(state , action) {
   
   });
 
+ 
+  const dayByAppId= id => {
+    let dayByAppointmenID={};
+    state.days.forEach(item => {
+      item.appointments.forEach(appointmentID=>{
+        if(id===appointmentID){
+          dayByAppointmenID={...item};
+        }}
+      )
+    });
+    return dayByAppointmenID;
+  }
+  // const decreaseSpots = (state, findDay) => {
+  //   const days = state.days.map((item, index) => {
+  //     if (index !== findDay.id - 1) {
+  //       return item;
+  //     }
+  //     return {
+  //       ...findDay,
+  //       spots: item.spots - 1
+  //     };
+  //   });
+  //   return days;
+  // }
+  
   const setDay = day => dispatch({ type: SET_DAY, day });
   
   function bookInterview(id, interview) {
     
-    // console.log(id, interview);
+    const daySpot = dayByAppId(id)
+    // let dayObj = dayByAppId(id)
+    const spotIncrease = (daySpot) =>{
+      const output = state.days.map((item, index)=>{
+        if (index !== daySpot.id-1){
+          return item;
+        }
+        return {
+          ...daySpot,
+          spots:item.spots - 1
+        }
+      }
+      )
+      return output;
+    }
+    const stateDays = spotIncrease(daySpot)
+    
+    
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -70,19 +114,32 @@ function reducer(state , action) {
       ...state.appointments,
       [id]: appointment
     };
-    const spots = {
-      ...state.spots,
-      spots: 1
-
-    }
+   
     
       // console.log(appointments)
     return axios.put(`/api/appointments/${id}`, {interview})
-    .then(axios.get('/api/days').then((res) =>  console.log((res.data["3"].spots)) )).then(res =>  dispatch({ type: SET_INTERVIEW, appointments, spots: res }))
+    .then(axios.get('/api/days').then(res =>  dispatch({ type: SET_INTERVIEW, appointments,} ), dispatch({ type: SET_SPOTSREMAINING, stateDays} )))
     
   }
 
   function deleteInterview(id, interview) {
+
+    const daySpot = dayByAppId(id)
+    
+    const spotIncrease = (daySpot) =>{
+      const output = state.days.map((item, index)=>{
+        if (index !== daySpot.id-1){
+          return item;
+        }
+        return {
+          ...daySpot,
+          spots:item.spots + 1
+        }
+      }
+      )
+      return output;
+    }
+    const stateDays = spotIncrease(daySpot)
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -92,7 +149,7 @@ function reducer(state , action) {
       [id]: appointment
     };
     
-    return axios.delete(`/api/appointments/${id}`).then(res => dispatch({ type: SET_INTERVIEW, appointments }));
+    return axios.delete(`/api/appointments/${id}`).then(res => dispatch({ type: SET_INTERVIEW, appointments }), dispatch({ type: SET_SPOTSREMAINING, stateDays} ));
   }
 
   useEffect (() => {

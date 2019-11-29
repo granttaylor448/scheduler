@@ -65,5 +65,15 @@ const getAppointmentsForDay= function(state, day) {
   } return null
    
 }
+const getSpotsForDay= function(state, day) {
+  
+  let compare = 0
+  const filteredDays = state.days.filter(item => item.name === day);
+  if (filteredDays.length > 0) {
 
-export { getInterview, getAppointmentsForDay, getInterviewerForDay }
+    compare = filteredDays[0].spots
+  }
+    return compare
+ }
+
+export { getInterview, getAppointmentsForDay, getInterviewerForDay, getSpotsForDay }
