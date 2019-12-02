@@ -34,7 +34,7 @@ function reducer(state , action) {
      case SET_INTERVIEW: { 
        return {...state,
          appointments: action.appointments,
-         spots: 100
+        
       }
     }
     case SET_SPOTSREMAINING: {
@@ -71,25 +71,12 @@ function reducer(state , action) {
     });
     return dayByAppointmenID;
   }
-  // const decreaseSpots = (state, findDay) => {
-  //   const days = state.days.map((item, index) => {
-  //     if (index !== findDay.id - 1) {
-  //       return item;
-  //     }
-  //     return {
-  //       ...findDay,
-  //       spots: item.spots - 1
-  //     };
-  //   });
-  //   return days;
-  // }
   
   const setDay = day => dispatch({ type: SET_DAY, day });
   
   function bookInterview(id, interview) {
     
     const daySpot = dayByAppId(id)
-    // let dayObj = dayByAppId(id)
     const spotIncrease = (daySpot) =>{
       const output = state.days.map((item, index)=>{
         if (index !== daySpot.id-1){
@@ -160,11 +147,11 @@ function reducer(state , action) {
       Promise.resolve(axios.get('/api/appointments').then ((res) =>  res.data )),
       Promise.resolve(axios.get('/api/interviewers').then ((res) =>  res.data )),
     ]).then((all) => {
-      console.log(all[0]["3"].spots)
-      dispatch({ type: SET_APPLICATION_DATA, days : all[0], spots: all[0]["3"].spots, appointments : all[1], interviewers: all[2] });
-      console.log(all[0]); // first
-      console.log(all[1]); // second
-      console.log(all[2]); // third
+      // console.log(all[2]);//[0]["3"].spots)
+      console.log("Look",  all[2]); // third
+      dispatch({ type: SET_APPLICATION_DATA, days : all[0], appointments : all[1], interviewers: all[2] });
+      // console.log(all[0]); // first
+      // console.log(all[1]); // second
     });
   }, [])
 
