@@ -32,7 +32,7 @@ const getAppointmentsForDay= function(state, day) {
        result.push(state.interviewers[item])
      } 
     })
-    console.log(result)
+    // console.log(result)
       return result;
    }
   //   compare.forEach(item => {

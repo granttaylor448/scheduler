@@ -14,12 +14,14 @@ import Confirm from "./Confirm"
 import Error from "./Error"
 
 
+
+
 export default function Appointment(props) { 
 
-    const [state, setState] = useState({
-        ERROR_SAVE: {},
-        ERROR_DELETE: {}
-    })
+    // const [state, setState] = useState({
+    //     ERROR_SAVE: {},
+    //     ERROR_DELETE: {}
+    // })
     const EMPTY = "EMPTY";
     const SHOW = "SHOW";
     const CREATE = "CREATE";
@@ -50,8 +52,22 @@ export default function Appointment(props) {
         }).catch(error => 
         transition(ERROR_SAVE, true));
         
-        // transition(SHOW)
     }
+
+    function edit(name, interviewer) {
+        const interview = {
+          student: name,
+          interviewer
+          };
+          transition(SAVING, true)
+          props.editInterview(props.id, interview)
+          .then(() => {
+              transition(SHOW)
+          }).catch(error => 
+          transition(ERROR_SAVE, true));
+          
+          // transition(SHOW)
+      }
 
     function remove(id) {
         transition(DELETING, true)
@@ -63,8 +79,9 @@ export default function Appointment(props) {
     
 
     return (
-      <article className="appointment">
+      <article className="appointment" data-testid="appointment">
             <Header
+                
                 time={props.time}
             />
             {/* {props.interview ? 
@@ -136,7 +153,7 @@ export default function Appointment(props) {
                         onChange={(event) => setName(event.target.value)}
                         onSubmit={event => event.preventDefault()}
                         onCancel={e => (back(EMPTY))}
-                        onSave= {save}
+                        onSave= {edit}
                     />
                 )}
                 {mode === ERROR_SAVE && (
@@ -151,6 +168,7 @@ export default function Appointment(props) {
                     onClose = {e => (back(SHOW))}
                     />
                 )}
+                
         </article>
     )
 }

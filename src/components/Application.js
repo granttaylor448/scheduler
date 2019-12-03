@@ -16,7 +16,8 @@ export default function Application(props) {
       state,
       setDay,
       bookInterview,
-      deleteInterview
+      deleteInterview,
+      editInterview
     } = useApplicationData();
   
 
@@ -26,7 +27,7 @@ export default function Application(props) {
 
     const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.interview);
-      console.log(interview)
+      
       return (
         <Appointment
           key={appointment.id}
@@ -37,6 +38,7 @@ export default function Application(props) {
           spots= {spots}
           bookInterview={bookInterview}
           deleteInterview = {deleteInterview}
+          editInterview = {editInterview}
         />
         
       );
