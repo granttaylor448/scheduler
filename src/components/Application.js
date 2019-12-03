@@ -1,11 +1,9 @@
-import React, { useState, setState, useEffect } from "react";
-import axios from "axios";
-
+import React from "react";
 import "components/Application.scss";
 import Appointment from "components/Appointment";
-import DayList from "./DayList"
+import DayList from "./DayList";
 import {getAppointmentsForDay, getInterview, getInterviewerForDay, getSpotsForDay } from "../helpers/selectors";
-import useApplicationData from "hooks/useApplicationData"
+import useApplicationData from "hooks/useApplicationData";
 
 
 
@@ -65,7 +63,6 @@ export default function Application(props) {
         src="images/lhl.png"
         alt="Lighthouse Labs"
       />
-        {/* * Replace this with the sidebar elements during the "Environment Setup" activity. */} */}
       </section>
       <section className="schedule"> {schedule}
         

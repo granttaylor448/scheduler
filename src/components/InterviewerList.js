@@ -5,12 +5,7 @@ import "components/InterviewerListItem.scss"
 import InterviewerListItem from "components/InterviewerListItem"
 import PropTypes from 'prop-types';
 
-
-
-
 export default function InterviewList(props) { 
-  
-  
   
   const RenderInterviewList  = props.interviewers.map((person) => {
     return (
@@ -24,12 +19,7 @@ export default function InterviewList(props) {
       />
       );
     });
-    
-    // const interviewee = classNames("interviewers__item", {
-      //   "interviewers__item--selected": props.selected
-      // });
-      
-      
+  
       return (
         <section className={"interviewers"}>
       <h4 className="interviewers__header text--light">Interviewer</h4>

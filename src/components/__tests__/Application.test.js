@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, fireEvent, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, queryByText, queryByAltText } from "@testing-library/react";
+import { render, cleanup, waitForElement, fireEvent, getByText, getAllByTestId, getByAltText, getByPlaceholderText, queryByText, queryByAltText } from "@testing-library/react";
 
 import Application from "components/Application";
 
@@ -37,7 +37,7 @@ describe("Application", () => {
   
     fireEvent.click(getByText(appointment, "Save"));
     expect(getByText(appointment, "SAVING")).toBeInTheDocument();
-    // debug()
+    
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
 
     const day = getAllByTestId(container, "day").find(day =>
@@ -143,7 +143,7 @@ describe("Application", () => {
   
     fireEvent.click(getByText(appointment, "Save"));
     expect(getByText(appointment, "SAVING")).toBeInTheDocument();
-    // debug()
+    
     await waitForElement(() => getByText(container, "Error"));
     expect(getByText(appointment, "FAILED TO SAVE")).toBeInTheDocument();
 

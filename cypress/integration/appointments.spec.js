@@ -1,4 +1,3 @@
-import { irBlack } from "react-syntax-highlighter/dist/styles/hljs";
 
 describe("Appointments", () => {
   beforeEach(() => {
@@ -38,8 +37,5 @@ describe("Appointments", () => {
     cy.contains("DELETING").should("exist")
     cy.contains("DELETING").should('not.exist')
     cy.contains("[data-testid=student-name-input]", "Archie Cohen").should('not.exist')
-
-
-
   });
  });
