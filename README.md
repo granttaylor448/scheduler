@@ -1,5 +1,8 @@
 # Interview Scheduler
 Interview Scheduler is a front-end app built by Grant Taylor as part of React week for Lighthouse Labs. It allows users to book, edit and cancel interviews Monday to Friday, 12 -5. It also deals with error handling and provides prompts should the user fail to input certain data.
+
+Project hosted here: https://upbeat-darwin-fe4567.netlify.com/
+
 ## Interview Scheduler Landing Page
 ![InterviewScheduler](https://github.com/granttaylor448/scheduler/blob/master/src/photos/InterviewScheduler-landingpage.pvn.png?raw=true)
 
